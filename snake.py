@@ -8,8 +8,7 @@ Exercises
 4. Change the snake to respond to mouse clicks.
 """
 
-
-from random import randrange, choice
+from random import randrange
 from turtle import *
 
 from freegames import square, vector
@@ -27,7 +26,7 @@ def change(x, y):
 
 def inside(head):
     """Return True if head inside boundaries."""
-    return -301 < head.x < 289 and -300 < head.y < 300
+    return -200 < head.x < 190 and -200 < head.y < 190
 
 
 def move():
@@ -36,7 +35,7 @@ def move():
     head.move(aim)
 
     if not inside(head) or head in snake:
-        square(snake[-1].x, snake[-1].y, 9, 'red')
+        square(head.x, head.y, 9, 'red')
         update()
         return
 
@@ -44,8 +43,8 @@ def move():
 
     if head == food:
         print('Snake:', len(snake))
-        food.x = randrange(-29, 29) * 10
-        food.y = randrange(-29, 29) * 10
+        food.x = randrange(-15, 15) * 10
+        food.y = randrange(-15, 15) * 10
     else:
         snake.pop(0)
 
@@ -58,17 +57,8 @@ def move():
     update()
     ontimer(move, 100)
 
-def moveFood():
-    opciones = [vector(10, 0), vector(-10, 0), vector(0, 10), vector(0, -10)]
-    paso = choice(opciones)
-    newFood = food.copy()
-    newFood.move(paso)
-    if inside(newFood):
-        food.move(paso)
-    ontimer(moveFood, 600)
-    update()
 
-setup(600, 600, 400, 0)
+setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)
 listen()
@@ -77,6 +67,4 @@ onkey(lambda: change(-10, 0), 'Left')
 onkey(lambda: change(0, 10), 'Up')
 onkey(lambda: change(0, -10), 'Down')
 move()
-moveFood()
 done()
-    
